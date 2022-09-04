@@ -1,10 +1,10 @@
-package com.learn.streamdemo.domain.api;
+package com.learn.streamdemo.domain.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class NotificationRequest {
+public class NotificationDto {
     private String message;
 }

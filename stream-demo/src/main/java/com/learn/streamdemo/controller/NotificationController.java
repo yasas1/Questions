@@ -1,6 +1,6 @@
 package com.learn.streamdemo.controller;
 
-import com.learn.streamdemo.domain.api.NotificationRequest;
+import com.learn.streamdemo.domain.dto.NotificationDto;
 import com.learn.streamdemo.domain.entity.Notification;
 import com.learn.streamdemo.service.NotificationService;
 import com.learn.streamdemo.util.HeartBeat;
@@ -22,8 +22,8 @@ public class NotificationController {
     }
 
     @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<Notification> createNotification(@RequestBody NotificationRequest notificationRequest) {
-        return this.notificationService.createNotification(notificationRequest);
+    public Mono<Notification> createNotification(@RequestBody NotificationDto notificationDto) {
+        return this.notificationService.createNotification(notificationDto);
     }
 
     @GetMapping(path = "/streams", produces = MediaType.TEXT_EVENT_STREAM_VALUE)

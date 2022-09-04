@@ -1,6 +1,6 @@
 package com.learn.streamdemo.service.impl;
 
-import com.learn.streamdemo.domain.api.NotificationRequest;
+import com.learn.streamdemo.domain.dto.NotificationDto;
 import com.learn.streamdemo.domain.entity.Notification;
 import com.learn.streamdemo.processor.SinkProcessor;
 import com.learn.streamdemo.repository.NotificationRepository;
@@ -24,9 +24,9 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public Mono<Notification> createNotification(NotificationRequest notificationRequest) {
-        NotificationHelper.validateNotificationRequest(notificationRequest);
-        return Mono.just(NotificationHelper.notificationRequestToNotificationEntity(notificationRequest))
+    public Mono<Notification> createNotification(NotificationDto notificationDto) {
+        NotificationHelper.validateNotificationRequest(notificationDto);
+        return Mono.just(NotificationHelper.notificationDtoToNotificationEntity(notificationDto))
                 .flatMap(this.notificationRepository::save)
                 .doOnNext(notificationSinkProcessor::add)
                 .doOnError(throwable -> log.error("Error on saving notification, ", throwable));
