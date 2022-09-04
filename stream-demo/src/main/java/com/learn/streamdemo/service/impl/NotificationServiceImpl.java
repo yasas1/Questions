@@ -33,7 +33,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public Flux<Notification> getAllNotifications() {
+    public Flux<Notification> streamNotifications() {
         return this.notificationRepository.findAll()
                 .mergeWith(notificationSinkProcessor.flux());
     }

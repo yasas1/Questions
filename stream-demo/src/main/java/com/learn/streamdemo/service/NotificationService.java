@@ -8,5 +8,5 @@ import reactor.core.publisher.Mono;
 public interface NotificationService {
 
     Mono<Notification> createNotification(NotificationRequest notificationRequest);
-    Flux<Notification> getAllNotifications();
+    Flux<Notification> streamNotifications();
 }
