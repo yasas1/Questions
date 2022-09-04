@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: demo-service
+
+  data:
+    mongodb:
+      database: demo
+      host: localhost
+      port: 27017
+
+server:
+  port: 9000
