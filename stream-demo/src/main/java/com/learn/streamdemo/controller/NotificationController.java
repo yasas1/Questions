@@ -26,6 +26,16 @@ public class NotificationController {
         return this.notificationService.createNotification(notificationDto);
     }
 
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<Notification> getNotificationById(@PathVariable(name = "id") String id) {
+        return this.notificationService.getNotificationById(id);
+    }
+
+    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flux<Notification> getAllNotifications() {
+        return this.notificationService.getAllNotifications();
+    }
+
     @GetMapping(path = "/streams", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Object> streamNotification(){
         return Flux.interval(Duration.ofSeconds(10))

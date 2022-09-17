@@ -33,6 +33,16 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public Mono<Notification> getNotificationById(String id) {
+        return notificationRepository.findById(id);
+    }
+
+    @Override
+    public Flux<Notification> getAllNotifications() {
+        return notificationRepository.findAll();
+    }
+
+    @Override
     public Flux<Notification> streamNotifications() {
         return this.notificationRepository.findAll()
                 .mergeWith(notificationSinkProcessor.flux());
