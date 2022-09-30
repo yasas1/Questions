@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/app/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -10,6 +11,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    print("init function");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
+              // --------- login text
               padding: const EdgeInsets.only(top: 5),
               child: const Text(
                 "Login",
@@ -39,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Container(
+              // -------- login Logo
               height: 200,
               width: 400,
               child: Image.asset("assets/images/flutter.png"),
@@ -47,8 +56,8 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
-                  //-------username
                   Container(
+                    // ------- username
                     padding: const EdgeInsets.only(bottom: 30),
                     child: TextFormField(
                       controller: _usernameController,
@@ -56,10 +65,13 @@ class _LoginPageState extends State<LoginPage> {
                           border: UnderlineInputBorder(),
                           labelText: "Enter your username",
                           hintText: "Username"),
+                      onChanged: (value) {
+                        print("value : $value");
+                      },
                     ),
                   ),
-                  //-----passsowrd
                   Container(
+                    // ----- passsword
                     padding: const EdgeInsets.only(bottom: 30),
                     child: TextFormField(
                       controller: _passwordController,
@@ -69,14 +81,12 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: "Password"),
                     ),
                   ),
-                  //----login button
                   Container(
+                    //  ------ login button
                     padding: EdgeInsets.symmetric(vertical: 30),
                     width: 200,
                     child: ElevatedButton(
-                      onPressed: () {
-                        print("Login button clicked");
-                      },
+                      onPressed: _loginFunction,
                       child: const Text(
                         'Login',
                         style: TextStyle(
@@ -93,6 +103,38 @@ class _LoginPageState extends State<LoginPage> {
         ),
       )),
     );
+  }
+
+  void _loginFunction() {
+    if (_usernameController.text == "yasas" &&
+        _passwordController.text == "12345") {
+      print("Logged In");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
+    } else {
+      print("Loging Failed");
+      _showAlertDialog(context);
+    }
+  }
+
+  void _showAlertDialog(BuildContext context) {
+    Widget okButton = ElevatedButton(
+      child: Text("Ok"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    AlertDialog alertDialog = AlertDialog(
+      title: const Text("Login Error"),
+      content: const Text("Invalid Credentials"),
+      actions: [okButton],
+    );
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alertDialog;
+        });
   }
 }
 
