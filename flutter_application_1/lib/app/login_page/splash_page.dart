@@ -28,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _navigateToLoginScreen(BuildContext context) {
-    Future.delayed(Duration(seconds: 3), (){
+    Future.delayed(Duration(seconds: 2), (){
       // push replacement to avoid go back to previous page from back button
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
     });
