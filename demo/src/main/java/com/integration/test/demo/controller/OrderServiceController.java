@@ -1,24 +1,28 @@
 package com.integration.test.demo.controller;
 
+import com.integration.test.demo.dto.OrderDto;
+import com.integration.test.demo.entity.OrderEntity;
 import com.integration.test.demo.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/orders")
 public class OrderServiceController {
 
-    @Autowired
     private OrderService orderService;
 
-    @GetMapping("/welcome")
-    public Mono<String> welcomeOrderEvents(){
-        return Mono.just("Welcome To Order Service");
+    @PostMapping(consumes =  MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<OrderEntity> createOrder(@RequestBody OrderDto orderDto){
+        return orderService.createOrder(orderDto);
     }
 
+    @GetMapping("/{id}")
+    public Mono<OrderEntity> getOrderById(@PathVariable(name = "id") String id){
+        return orderService.getOrderById(id);
+    }
 
 }
