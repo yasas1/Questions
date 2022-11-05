@@ -11,18 +11,21 @@ import reactor.core.publisher.Mono;
 class NotificationControllerTest extends AbstractIntegrationTest {
 
     @Test
-    void createNotification() {
+    void notificationTest() {
 
-        String requestJson = readFile("api/notification_request.json");
         String createUri = "/notifications/create";
         String findAllUri = "/notifications/all";
+
+        Notification message = Notification.builder()
+                .message("Test Notification Message")
+                .build();
 
         webTestClient
                 .post()
                 .uri(createUri)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(requestJson), String.class)
+                .body(Mono.just(message), Notification.class)
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
