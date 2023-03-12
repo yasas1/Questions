@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Flux<String> getAllUsesNames() {
         return Flux.interval(Duration.ofSeconds(5))
-                .map(i -> "Example User name " + i +1);
+                .map(i -> "Example User name " + i);
     }
 
     @Override

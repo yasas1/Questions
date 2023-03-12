@@ -12,21 +12,24 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/units")
 public class UnitController {
 
-    private final UnitService UnitService;
+    private final UnitService unitService;
 
+    // to test request-response
     @GetMapping(value = "/{unitId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<String> getUserNameForUnitId(@PathVariable String unitId) {
-        return UnitService.getUserNameForUnitId(unitId);
+        return unitService.getUserNameForUnitId(unitId);
     }
 
+    // to test request-stream
     @GetMapping(value = "/stream/users", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> getUserNameForUnitId() {
-        return UnitService.getAllUsersNames();
+        return unitService.getAllUsersNames();
     }
 
+    // to test fire-and-forget
     @PostMapping(value = "/name/{unitName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<String> collectUnitName(@PathVariable String unitName) {
-        return UnitService.sendUnitNameToUserServiced(unitName)
+        return unitService.sendUnitNameToUserServiced(unitName)
                 .thenReturn("Received");
     }
 }

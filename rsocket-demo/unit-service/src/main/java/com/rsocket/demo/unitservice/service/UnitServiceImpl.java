@@ -13,6 +13,7 @@ public class UnitServiceImpl implements UnitService {
 
     private final RSocketRequester rSocketRequester;
 
+    // messaging: request-response
     @Override
     public Mono<String> getUserNameForUnitId(String unitId) {
         return rSocketRequester.route("get-user-name-by-id")
@@ -22,6 +23,7 @@ public class UnitServiceImpl implements UnitService {
                 .doOnError(throwable -> log.error("Error in reading data from rout : get-user-name-by-id", throwable));
     }
 
+    // messaging: request-stream
     @Override
     public Flux<String> getAllUsersNames() {
         return rSocketRequester.route("get-all-users-names")
@@ -30,6 +32,7 @@ public class UnitServiceImpl implements UnitService {
                 .doOnError(throwable -> log.error("Error in reading data from rout : get-user-name-by-id", throwable));
     }
 
+    // messaging: fire-and-forget
     @Override
     public Mono<Void> sendUnitNameToUserServiced(String unitName) {
         return rSocketRequester.route("collect-unit-name")
