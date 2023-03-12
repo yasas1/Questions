@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  List<String> data = ["Unit One", "Unit Two", "Unit Three"];
+  List<String> data = ["Unit One", "Unit Two", "Unit Three","Unit Four","Unit Five","Unit Six","Unit Seven"];
   int _focusedIndex = 0;
   @override
   Widget build(BuildContext context) {

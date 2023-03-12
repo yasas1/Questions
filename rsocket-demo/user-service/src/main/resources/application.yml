@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: user-service
+  rsocket:
+    server:
+      port: 7000
+      transport: tcp
+  main:
+    lazy-initialization: true
+
+server:
+  port: 8001

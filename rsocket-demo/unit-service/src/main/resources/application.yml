@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: unit-service
+
+
+server:
+  port: 8002
