@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: work-monitor-service
+  r2dbc:
+    url: r2dbc:postgresql://localhost/postgres
+    username: postgres
+    password: 12345
+
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+
+timer:
+  tickDuration: 30
