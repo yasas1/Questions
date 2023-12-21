@@ -11,7 +11,7 @@ import java.util.Date;
 public class JwtUtil {
     public static final String TOKEN_HEADER= "Authorization";
     public static final String TOKEN_PREFIX= "Bearer ";
-    public static final String JWT_SECRET = "edfKAwfgGDgfvatghkmtk";
+    public static final String JWT_SECRET = "edfKAwfgGDgfvatghkmtk"; // get from secrets
     public static final long TOKEN_VALIDITY = 60*60*1000;
 
     private final JwtParser jwtParser;

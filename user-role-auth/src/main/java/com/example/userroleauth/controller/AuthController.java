@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(path = "/auth")
+@RequestMapping(path = "user-role-auth-service/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtTokenProvider;

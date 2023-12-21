@@ -36,7 +36,7 @@ public class PermissionController {
         return new ResponseEntity<>(this.permissionService.getPermissionById(id), HttpStatus.OK);
     }
 
-    @PreAuthorize("authentication.name == 'admin@example.com' and #passwordEncoder.matches('pwd1234', authentication.credentials)")
+    //@PreAuthorize("authentication.name == 'admin@example.com' and #passwordEncoder.matches('pwd1234', authentication.credentials)")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultResponse<PermissionDto>> listAllPermissions(@RequestParam(required = false, defaultValue = "0") int pageNum,
                                                                           @RequestParam(required = false, defaultValue = "10") int pageSize,

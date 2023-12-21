@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-role-auth-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+      # Port accessible outside cluster
+      nodePort: 30002
+  selector:
+    app: user-role-auth-service
+
+# to get the local url
+# minikube service user-role-auth-service --url -n local-dev
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-role-auth-service
+spec:
+  selector:
+    matchLabels:
+      app: user-role-auth-service
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: user-role-auth-service
+    spec:
+      containers:
+        - name: user-role-auth-service
+          image: user-role-auth:1.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
