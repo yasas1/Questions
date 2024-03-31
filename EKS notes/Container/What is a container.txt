@@ -1,0 +1,5 @@
+The first thing to understand when you're look into containers is containers aren't a real thing. 
+There's no manual page in the kernel for containers, then they're not necessarily a Linux feature or a Windows feature.
+Instead, what containers are, are a grouping of lots of low level technology into something we commonly refer to as a container.
+But one of the, the key differences with containers is that they're not first class citizens.
+They're not a single binary, a single piece of software

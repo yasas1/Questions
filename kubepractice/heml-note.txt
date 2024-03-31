@@ -1,0 +1,17 @@
+helm template .
+helm template . --debug
+helm install release-name . --set development=true
+helm upgrade release-name . --set development=true
+
+
+{{- include "test-app.labels" . | nindent 4 }}
+
+- (dash) is for remove new line
+include is the function to use helm Named Template defined in _helpers.tpl
+. (dot) is used to say use properties starting with . from Values file
+if we put .Values, we cneed to define those values withoud .Values prefix in Named Template
+nindent is used to mention how many space characters we need to put
+
+with
+
+toYml

@@ -1,0 +1,120 @@
+minikube start --driver=docker
+minikube stop
+-- load a local image into minikube
+minikube image load image-name
+minikube image ls --format table
+
+kubectl exec -it pod-name sh -n local-dev
+kubectl exec -it pod-name – bin/bash -n local-dev
+
+kubectl get all
+-o yaml | -o json  | -o wide
+
+--- name space
+kubectl create ns local-dev
+--set default namespace to dev
+kubectl config set-context $(kubectl config current-context) --namespace=dev
+--view all the pods in all namespaces
+kubectl get pods --all-namespaces
+kubectl get po --all-namespaces
+kubectl get pods -A
+--to connect its own database db-service(service name), host will be
+db-service
+--to connect dev namespace db-service(service name), host will be
+db-service.dev.svc.cluster.local
+
+-- create a pod using kind=pod yml definition
+kubectl create -f pod-definition.yml -n local-dev
+--- to apply the changes
+kubectl apply -f pod-definition.yml -n local-dev
+
+------------------------- Pod
+--- create a pod from command
+kubectl run nginx-pod --image=nginx
+--- get running pods
+kubectl get pods -n local-dev
+kubectl get pods --all-namespaces
+--- get running pods with more details
+kubectl get pods -o wide -n local-dev
+--- describe details of the pod
+kubectl describe pod myapp-pod -n local-dev
+
+
+------------------------- ReplicaSet
+kubectl create -f replicaset-definition.yml
+kubectl get replicaset
+kubectl describe replicaset new-replica-set
+kubectl delete replicaset myapp-replicaset
+kubectl replace -f replicaset-definition.yml
+kubectl scale replicaset myapp-replicaset  --replicas=4
+kubectl scale --replicas=4 -f replicaset-definition.yml
+
+-------------------------- Deployment
+kubectl get deployment
+kubectl describe deployment new-deployment
+kubectl create deployment http-frontend --image=httpd:2.4-alpine --replicas=3
+
+-------------------------- ConfigMap
+kubectl create configmap app-config \
+    --from-literal=APP_COLOR=blue \
+    --from-literal=APP_MODE=prod
+or
+kubectl create configmap app-config --from-file=app_config.properties
+
+kubectl create configmap ingress-nginx-controller --namespace ingress-nginx
+
+kubectl get configmaps
+kubectl describe configmaps
+
+kubectl create -f config-map.yml
+
+-------------------------- Secret
+kubectl create secret generic app-secret \
+    --from-literal=DB_USER=username \
+    --from-literal=DB_PASSWORD=password
+or
+kubectl create secret app-secrete --from-file=app_secret.properties
+
+kubectl get secrets
+kubectl describe secretes
+
+kubectl create -f secret-data.yml
+
+
+-------------------------- Service Account
+
+kubectl create serviceaccount dashboard-sa
+
+kubectl get serviceaccount
+kubectl describe serviceaccount dashboard-sa
+kubectl describe secret dashboard-sa-token-kbbdm
+
+v1.24
+kubectl create serviceaccount dashboard-sa
+kubectl create token dashboard-sa
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

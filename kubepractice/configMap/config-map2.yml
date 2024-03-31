@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map2
+data:
+  APP_PROFILE: "PROD"
+  REDIRECT_URL: "https://localhost:8080/test"

@@ -20,7 +20,10 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-role-auth-service
+  name: user-role-auth-service-deployment
+  labels:
+    app: user-role-auth-service
+    type: user-role-auth-back-end
 spec:
   selector:
     matchLabels:

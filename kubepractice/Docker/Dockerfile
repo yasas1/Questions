@@ -1,0 +1,16 @@
+FROM maven:3.8.4-openjdk-17-slim AS build
+WORKDIR /app
+
+COPY pom.xml .
+COPY src ./src
+
+RUN mvn clean install -DskipTests
+
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+
+COPY --from=build /app/target/personalized-data-service.jar ./personalized-data-service.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "personalized-data-service.jar"]

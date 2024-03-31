@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-service
+  labels:
+    app: test-service
+spec:
+  containers:
+    - name: test-service
+      image: test_service_image
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: TEST_ONE
+          value: "value_from_here"
+        - name: APP_PROFILE
+          valueFrom:
+            configMapKeyRef:
+              name: config-map2
+              key: APP_PROFILE
+        - name: REDIRECT_URL
+          valueFrom:
+            configMapKeyRef:
+              name: config-map2
+              key: REDIRECT_URL
+  restartPolicy: Always

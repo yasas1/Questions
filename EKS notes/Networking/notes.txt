@@ -1,0 +1,180 @@
+
+EKS Networking Resources
+Module 1 — Introduction
+o  eksctl – The official CLI for Amazon EKS
+
+https://eksctl.io
+o   Official AWS documentation
+
+Getting started with Amazon EKS – eksctl
+o   eksctl documentation
+
+Installation
+Creating and managing clusters
+ 
+Module 2 — Amazon VPC CNI
+Amazon VPC CNI
+o   https://github.com/aws/amazon-vpc-cni-k8s
+
+o   Amazon EKS documentation
+
+Configuring Amazon VPC CNI to use IAM Roles for Service Accounts (IRSA)
+Advanced networking use cases
+o   EKS Best Practices Guide
+
+Amazon VPC CNI
+ 
+Module 3 — Service Discovery
+o   Amazon EKS documentation
+
+Working with the CoreDNS Amazon EKS add-on
+o   EKS Best Practices Guide
+
+Scale CoreDNS Horizontally
+Monitor CoreDNS metrics
+ 
+Module 4 — External Traffic
+o   Kubernetes documentation
+
+Create an External Load Balancer
+o   Amazon EKS documentation
+
+Network load balancing on Amazon EKS
+ 
+Module 5 — AWS Load Balancer Controller
+o   Amazon EKS documentation
+
+Installing the AWS Load Balancer Controller add-on
+o   AWS Load Balancer Control documentation
+
+Installation Guide
+o   EKS Best Practices Guide
+
+Utilize Pod Readiness Gates
+ 
+Module 6 — External Traffic with Network Load Balancers
+o   Amazon EKS documentation
+
+Network load balancing on Amazon EKS
+o   EKS Best Practices Guide
+
+Use IP Target-Type Load Balancers
+o   AWS Load Balancer Controller Documentation
+
+Service Annotations
+ 
+
+service-nlb.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+spec:
+  selector:
+    run: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+  loadBalancerClass: service.k8s.aws/nlb
+
+ 
+Module 7 — Ingress
+o   Amazon EKS documentation
+
+Application load balancing on Amazon EKS
+o   EKS Best Practices Guide
+
+Use encryption with AWS load balancers
+o   AWS Blog
+
+A deeper look at Ingress Sharing and Target Group Binding in AWS Load Balancer Controller
+ 
+
+ingress-alb.yaml
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  ingressClassName: alb
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx
+            port:
+              number: 80
+
+ 
+Module 8 — Network Policy
+o   Amazon EKS documentation
+
+Configure your cluster for Kubernetes network policies
+o   EKS Best Practices Guide
+
+Network Policy
+o   Isovalent (AWS Partner)
+
+Network Policy Editor
+ 
+
+policy-default-deny-ingress.yaml
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+spec:
+  ingress: []
+  podSelector:
+    matchLabels:
+      run: nginx
+
+policy-allow-ingress.yaml
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress
+spec:
+  ingress:
+  - {}
+  podSelector:
+    matchLabels:
+      run: nginx
+
+ 
+Module 9 — IPv6
+o   Amazon EKS documentation
+
+Assigning IPv6 addresses to Pods and services
+o   EKS Best Practices Guide
+
+Running IPv6 EKS Clusters
+o   AWS Blog
+
+Amazon EKS launches IPv6 support
+ 
+Module 10 — Conclusion
+o   EKS Best Practices Guide
+
+Best Practices for Networking
+o   AWS Blogs
+
+De-mystifying cluster networking for Amazon EKS worker nodes
+Exposing Kubernetes Applications, Part 1: Service and Ingress Resources
+Exposing Kubernetes Applications, Part 2: AWS Load Balancer Controller
+ 

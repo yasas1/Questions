@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+    - hosts:
+        - kubia.example.com
+      secretName: tls-secret
+  ingressClassName: nginx
+  rules:
+    - host: kubia.example.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: service-a
+                port:
+                  number: 80
+
+
+#
+#  $ openssl genrsa -out tls.key 2048
+#  $ openssl req -new -x509 -key tls.key -out tls.cert -days 360 -subj /CN=kubia.example.com
+
+#  $ kubectl create secret tls tls-secret --cert=tls.cert --key=tls.key
+#
+#
+#
+#
+#

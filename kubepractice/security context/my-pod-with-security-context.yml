@@ -1,0 +1,40 @@
+
+# security context in pod level
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  securityContext:
+    runAsUser: 1010
+  containers:
+    - name: my-app
+      image: nginx
+      imagePullPolicy: IfNotPresent
+  restartPolicy: Always
+
+
+---
+# security context in container level
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  securityContext:
+    runAsUser: 1000
+  containers:
+    - name: my-app
+      image: nginx
+      imagePullPolicy: IfNotPresent
+      command: ["sleep", "5000"]
+      securityContext:
+        runAsUser: 1000
+        capabilities:
+          add:
+            - "MAC_ADMIN" # only supported in container level
+  restartPolicy: Always

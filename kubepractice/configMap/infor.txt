@@ -1,0 +1,39 @@
+kubectl create configmap app-config \
+    --from-literal=APP_COLOR=blue \
+    --from-literal=APP_MODE=prod
+
+kubectl create configmap app-config --from-file=app_config.properties
+
+kubectl get configmaps
+kubectl describe configmaps
+
+kubectl create -f config-map.yml
+kubectl apply -f config-map.yml
+
+
+yaml
+
+----ENV Value in the same file
+env:
+  - name: APP_PROFILE
+    value: prod
+
+----ENV
+envFrom:
+  - configMapRef:
+      name: app-config  // configMap file name
+
+----Single ENV
+env:
+  - name: APP_PROFILE
+    valueFrom:
+      configMapKeyRef:
+        name: app-config // configMap file name
+        key: APP_PROFILE  // key name of the variable that is mentioned in the configMap file
+
+----VOLUME
+volumes:
+  - name: app-config-volume
+    configMap:
+      name: app-config
+

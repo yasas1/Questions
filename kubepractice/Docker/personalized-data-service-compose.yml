@@ -1,0 +1,56 @@
+services:
+  pg-db:
+    container_name: pg-db
+    image: postgres:13.13-alpine3.18
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - db-data:/data/postgres
+    networks:
+      - psg-network
+
+  pg-admin:
+    container_name: pg-admin
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@domain.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGDATA: /data/postgres
+    depends_on:
+      - pg-db
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - psg-network
+  personalized-data-service:
+    container_name: personalized-data-service
+    image: personalized-data-service:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg-db:5432/personalized_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "8080:8080"
+    networks:
+      - psg-network
+    depends_on:
+      - pg-db
+    restart: unless-stopped
+
+volumes:
+  db-data:
+    driver: local
+  pgadmin-data:
+    driver: local
+
+networks:
+  psg-network:
+    driver: bridge
