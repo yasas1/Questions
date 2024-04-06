@@ -1,0 +1,23 @@
+
+01. Logs
+02. Metrics
+03. Traces
+
+
+-------AWS Native Service
+//Logs
+Control Plane Logs
+
+//Logs
+CloudWatch Logs
+
+//metrics
+CloudWatch Container Insights 
+
+
+-------Open Source Managed Service
+
+capture metrics through AWS Distro for OpenTelemmetry
+store in AWS managed service for Prometheus
+visualize explore and analized through AWS managed service for Grafana
+
